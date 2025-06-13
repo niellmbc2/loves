@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raniel's Love Application</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a more personal touch */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Parisienne&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap'); /* Added for headings */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fce7f3; /* Softer pink background */
+            overflow-x: hidden; /* Prevent horizontal scroll from confetti */
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif; /* Use Montserrat for main headings */
+        }
+
+        .cursive-font {
+            font-family: 'Parisienne', cursive;
+            font-size: 1.35rem; /* Slightly larger for elegance */
+            line-height: 1.8; /* More generous line height */
+            color: #4a4a4a; /* Darker text for better contrast */
+        }
+
+        .document-card {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* Even more rounded corners */
+            padding: 2.5rem; /* Increased padding */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Softer, larger shadow */
+            margin-bottom: 3rem; /* More space between cards */
+            border: 1px solid #fbcfe8; /* Soft pink border */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover effect */
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px); /* Lift card slightly on hover */
+            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.15), 0 6px 10px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Responsive typography */
+        @media (max-width: 768px) {
+            .cursive-font {
+                font-size: 1.2rem;
+            }
+            .document-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Specific styles for the moving button container */
+        #date-invite-container {
+            position: relative;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #fff0f6; /* Softer background for this section */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); /* Inner shadow */
+        }
+
+        #no-button {
+            position: absolute;
+            transition: all 0.1s ease-out;
+            white-space: nowrap;
+        }
+
+        /* Confetti particle styles and animation */
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti-particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            z-index: 9999;
+        }
+
+        /* Message Box Styles */
+        #message-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000; /* Ensure it's on top of everything */
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #message-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #message-box {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #message-overlay.visible #message-box {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8 lg:p-10 min-h-screen flex items-center justify-center">
+    <div class="max-w-4xl mx-auto w-full">
+        <!-- Main Application Header -->
+        <header class="text-center mb-10 document-card">
+            <h1 class="text-5xl sm:text-6xl font-extrabold text-pink-600 mb-4 tracking-tighter">
+                Raniel's Official Love Application
+            </h1>
+            <p class="text-xl text-gray-700 font-medium leading-relaxed">
+                A heartfelt submission to prove commitment and capability for forever love.
+            </p>
+            <p class="mt-4 text-md text-gray-500 italic">
+                *Processing time may vary depending on cuteness of submission.*
+            </p>
+        </header>
+
+        <!-- Notarized Love Letter -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Notarized Love Letter</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="cursive-font mb-4">
+                    My Dearest love,
+                </p>
+                <p class="cursive-font mb-4">
+                    From the moment our paths intertwined, my world transformed into a canvas painted with hues I never knew existed. You are, quite simply, the most breathtaking sunrise that has ever kissed the horizon of my life, dispelling all shadows with your brilliant light. My love for you isn't merely a fleeting spark; it's a mighty river, ever-flowing and deepening, carving its magnificent path through the landscape of my very soul, destined to merge with the boundless ocean of our shared future. And like the steadfast North Star, you are my constant, unwavering guide, illuminating my way and bringing clarity to my every aspiration. You possess a radiance so profound, it outshines a thousand supernovas, a mesmerizing glow that compels me to orbit your magnificent presence forever.
+                </p>
+                <p class="cursive-font text-right mt-8">
+                    With every beat of my devoted heart,<br>
+                    Raniel
+                </p>
+                <p class="text-sm text-gray-500 text-right mt-2">(Imagine a faint, sweet scent here, perhaps vanilla or rose)</p>
+                <p class="text-sm text-gray-500 text-right">(Imagine a lipstick mark, sealed with a kiss, here)</p>
+            </div>
+        </div>
+
+        <!-- Proof of Funds (for Future Date Nights) -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Proof of Funds (for Future Date Nights)</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="font-medium text-xl mb-4">Subject: Statement of Readiness for Unforgettable Date Nights & Tocino Harmony</p>
+                <p class="mb-4">
+                    This serves as an informal yet resolute declaration of my financial preparedness for a lifetime of extraordinary date nights. My current financial standing reflects a prudent approach, characterized by a healthy savings-to-debt ratio, ensuring that our romantic excursions are never a matter of fiscal concern.
+                </p>
+                <p class="mb-6">
+                    Furthermore, and perhaps more crucially, I hereby affirm my unwavering commitment to the unconditional sharing of tocino, without reservation or prompting. My future financial planning implicitly accounts for ample provisions of this delectable dish, always ready to be enjoyed together.
+                </p>
+                <p class="font-semibold text-lg mb-3">Anticipated Allocations Include:</p>
+                <ul class="list-disc list-inside ml-6 text-lg space-y-1">
+                    <li>Gourmet meals & cozy cafes</li>
+                    <li>Adventure activities & spontaneous road trips</li>
+                    <li>Cultural experiences & quiet evenings in</li>
+                    <li><span class="font-bold text-pink-600">Unlimited Tocino Reserve (Priority Fund)</span></li>
+                </ul>
+                <p class="mt-8 text-lg">
+                    This financial commitment is a testament to my dedication to your happiness and our shared experiences.
+                </p>
+                <p class="text-right mt-6 text-lg">Sincerely,<br>Raniel<br><span class="text-base text-gray-500">(Your Future Date Night Partner & Tocino Enthusiast)</span></p>
+            </div>
+        </div>
+
+        <!-- Psychological Evaluation -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Psychological Evaluation</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="font-medium text-xl mb-4">PSYCHOLOGICAL AFFIRMATION OF RANUEL'S EMOTIONAL READINESS</p>
+                <p class="mb-4">
+                    This informal psychological affirmation, derived from extensive self-reflection and candid introspection, confirms the following:
+                </p>
+                <ol class="list-decimal list-inside ml-6 text-lg space-y-3 mb-6">
+                    <li><span class="font-semibold text-purple-600">Emotional Availability:</span> Raniel is currently operating at peak emotional capacity, fully present and capable of engaging with profound feelings, both his own and those of others. Emotional doors are not just ajar; they are wide open, welcoming authentic connection.</li>
+                    <li><span class="font-semibold text-purple-600">Ex-Status:</span> All previous romantic chapters are definitively closed, archived, and filed under "lessons learned." The past is acknowledged but holds no lingering emotional sway. There is no residual baggage, only clear space for a vibrant future.</li>
+                    <li><span class="font-semibold text-purple-600">Readiness to Talk About Feelings (Sans Memes... Mostly):</span> Raniel is prepared and willing to articulate complex emotions, discuss vulnerabilities, and engage in meaningful conversations without the immediate recourse to internet humor. While a well-placed meme may occasionally punctuate a lighter moment, earnest dialogue is the default mode.</li>
+                </ol>
+                <p class="font-semibold text-xl mb-3">Conclusion:</p>
+                <p class="text-lg">
+                    Raniel is certified emotionally available, baggage-free, and ready for sincere, meme-light emotional discourse.
+                </p>
+            </div>
+        </div>
+
+        <!-- Letter of Intent to Love Me Even When I’m Irrational -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Letter of Intent to Love Me Even When I’m Irrational</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="font-medium text-xl mb-4">LETTER OF INTENT TO LOVE UNCONDITIONALLY</p>
+                <p class="mb-4">
+                    This document formally expresses my profound and unwavering intent to love you, cherish you, and stand by you, even when the winds of irrationality blow without prior notice.
+                </p>
+                <p class="mb-6">
+                    I understand and acknowledge your sovereign right to moments of unannounced drama, spontaneous emotional declarations, and the occasional perfectly justifiable irrational thought process. My commitment is not contingent on perpetual calm but rather embraces the full, vibrant spectrum of your being.
+                </p>
+                <p class="font-semibold text-lg mb-3">I promise to approach these moments with:</p>
+                <ul class="list-disc list-inside ml-6 text-lg space-y-1 mb-6">
+                    <li><span class="font-semibold text-indigo-600">Patience:</span> A deep well of understanding and calmness.</li>
+                    <li><span class="font-semibold text-indigo-600">Empathy:</span> An earnest effort to see the world from your perspective.</li>
+                    <li><span class="font-semibold text-indigo-600">Support:</span> An unwavering presence, ready to listen, comfort, or simply hold space.</li>
+                    <li><span class="font-semibold text-indigo-600">A Sense of Humor:</span> Because sometimes, a shared laugh is the best antidote.</li>
+                </ul>
+                <p class="text-lg">
+                    My love is a steady anchor, designed to hold firm through any emotional tempest, large or small.
+                </p>
+                <p class="text-right mt-6 text-lg">With steadfast devotion,<br>Raniel</p>
+            </div>
+        </div>
+
+        <!-- Certificate of Completion – “How to Handle My Mood Swings 101” -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Certificate of Completion – “How to Handle My Mood Swings 101”</h2>
+            <div class="text-gray-700 leading-relaxed text-center py-10 px-6 sm:px-10 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl border-2 border-blue-300 shadow-md">
+                <h3 class="text-2xl sm:text-3xl font-bold text-blue-800 mb-4 tracking-wide">CERTIFICATE OF OUTSTANDING ACHIEVEMENT</h3>
+                <p class="text-xl sm:text-2xl font-semibold text-blue-700 mb-6">THIS CERTIFIES THAT</p>
+                <p class="text-5xl sm:text-6xl font-extrabold text-purple-800 mb-8 tracking-tighter">Raniel</p>
+                <p class="text-xl sm:text-2xl font-semibold text-blue-700 mb-6">HAS SUCCESSFULLY COMPLETED AND EXCELLED IN</p>
+                <p class="text-4xl sm:text-5xl font-extrabold text-purple-800 mb-8 tracking-tighter">"HOW TO HANDLE MY MOOD SWINGS 101"</p>
+                <p class="text-3xl sm:text-4xl font-bold text-green-600 mb-10">With Flying Colors!</p>
+
+                <div class="text-left text-gray-700 mb-8 max-w-xl mx-auto text-lg">
+                    <p class="font-semibold mb-3 text-gray-800">Course Highlights & Demonstrated Proficiencies:</p>
+                    <ul class="list-disc list-inside ml-6 space-y-2">
+                        <li><span class="font-semibold">Anticipation & Detection:</span> Proficient in recognizing subtle shifts in emotional climate.</li>
+                        <li><span class="font-semibold">Proactive Comfort Measures:</span> Skilled in deploying strategic blankets, preferred snacks, and comforting words.</li>
+                        <li><span class="font-semibold">Active Listening & Validation:</span> Mastery of listening intently without interruption or judgment.</li>
+                        <li><span class="font-semibold">Humor Deployment (Tactical):</span> Judicious use of levity to diffuse tension, where appropriate.</li>
+                        <li><span class="font-semibold">Patience & Resilience:</span> Unwavering endurance through emotional fluctuations.</li>
+                    </ul>
+                </div>
+                <p class="text-xl font-medium text-gray-800 mt-8">
+                    <span class="font-semibold">Remarks:</span> Raniel has shown exceptional dedication and an innate talent for navigating complex emotional landscapes. This certificate acknowledges a remarkable capacity for empathy and unwavering support.
+                </p>
+                <p class="text-lg text-gray-600 mt-6">
+                    <span class="font-semibold">Awarded On:</span> June 13, 2025
+                </p>
+            </div>
+        </div>
+
+        <!-- Recent Passport-Sized Photo with Heart Eyes -->
+        <div class="document-card text-center">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Recent Passport-Sized Photo with Heart Eyes</h2>
+            <div class="flex flex-col items-center">
+                <img src="passportphoto.jpg" alt="Raniel's Passport Photo with Heart Eyes" class="rounded-full border-4 border-pink-400 shadow-xl mb-4 w-40 h-40 sm:w-56 sm:h-56 object-cover transform hover:scale-105 transition-transform duration-300 ease-in-out">
+                <p class="text-gray-700 italic text-lg leading-relaxed">
+                    (Proof that my heart is quite literally in my eyes when I think of you. Filtered just enough to capture the magic, but still undeniably me!)
+                </p>
+            </div>
+        </div>
+
+        <!-- Sworn Statement of No Sablay -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Sworn Statement of No Sablay</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="font-medium text-xl mb-4">SWORN STATEMENT OF UNWAVERING RELIABILITY</p>
+                <p class="mb-4 text-lg">
+                    I, Raniel, hereby solemnly swear and affirm the following binding commitments:
+                </p>
+                <ol class="list-decimal list-inside ml-6 text-lg space-y-3 mb-6">
+                    <li><span class="font-semibold text-green-600">No Ghosting:</span> I shall never vanish into thin air, leaving you wondering or alone. My presence shall be a constant and reliable one.</li>
+                    <li><span class="font-semibold text-green-600">No Airing:</span> I shall never leave your messages unread or your calls unanswered for an unreasonable duration. Communication is a sacred trust.</li>
+                    <li><span class="font-semibold text-green-600">No "K" Replies:</span> The dreaded singular "K" shall never, under any circumstance, emanate from my digital device. All replies will be thoughtful, engaging, and reflective of my genuine interest.</li>
+                </ol>
+                <p class="mb-4 text-lg">
+                    This statement is made with full awareness of the importance of consistent communication and reliability in a cherished connection.
+                </p>
+                <p class="text-right mt-6 text-lg">Signed with Utmost Sincerity,<br>Raniel<br><span class="text-base text-gray-500">(Committed to Uninterrupted Connection)</span></p>
+            </div>
+        </div>
+
+        <!-- Updated Curriculum Vitae of Love Experience -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Updated Curriculum Vitae of Love Experience</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="font-medium text-xl mb-4">CURRICULUM VITAE OF RANUEL'S LOVE EXPERIENCE</p>
+                <p class="mb-3 text-lg"><span class="font-semibold">Name:</span> Raniel</p>
+                <p class="mb-6 text-lg"><span class="font-semibold">Objective:</span> To secure a lifelong position as your devoted partner, offering unwavering love, profound companionship, and endless joy, free from all red flags and emotional damage.</p>
+
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4 border-b border-gray-300 pb-2">Summary of Qualifications:</h3>
+                <ul class="list-disc list-inside ml-6 text-lg space-y-2 mb-6">
+                    <li>A history of wholesome, respectful, and growth-oriented romantic endeavors (all honorably concluded).</li>
+                    <li>Demonstrated capacity for deep emotional connection, empathy, and genuine affection.</li>
+                    <li>Proven ability to communicate openly, resolve conflicts constructively, and prioritize mutual happiness.</li>
+                    <li>Absolutely no lingering emotional baggage, unresolved issues, or concerning patterns.</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4 border-b border-gray-300 pb-2">Love Experience (Wholesome Applicants Only - Red Flag-Free):</h3>
+                <div class="mb-6">
+                    <p class="font-semibold text-xl">Devoted Partner & Cherished Companion</p>
+                    <p class="text-base text-gray-600 mb-3">Dates & Descriptions of Previous Relationships (Honorably Concluded)</p>
+                    <ul class="list-disc list-inside ml-6 text-lg space-y-2">
+                        <li>Cultivated an environment of mutual respect, understanding, and shared joy.</li>
+                        <li>Practiced active listening and empathetic communication.</li>
+                        <li>Focused on personal growth and positive relational dynamics.</li>
+                        <li><span class="font-semibold">Outcome:</span> All experiences concluded respectfully, leading to valuable life lessons and increased emotional maturity, without leaving any detrimental emotional impact or "red flags."</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4 border-b border-gray-300 pb-2">Skills & Attributes:</h3>
+                <ul class="list-disc list-inside ml-6 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-lg">
+                    <li>Emotional Intelligence (High)</li>
+                    <li>Conflict Resolution (Constructive)</li>
+                    <li>Communication (Open & Honest)</li>
+                    <li>Affection (Abundant & Genuine)</li>
+                    <li>Loyalty (Unwavering)</li>
+                    <li>Sense of Humor (Well-Developed)</li>
+                    <li>Tocino Sharing (Expert Level)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Proof of Petting Rights Approval (Implied in Contract) -->
+        <div class="document-card text-center">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Proof of Petting Rights Approval</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="text-xl mb-4">
+                    While a formal "approval" document isn't directly submitted, consider my heart and actions as the ultimate proof.
+                </p>
+                <p class="font-bold text-2xl text-pink-600 mb-3">
+                    If I pass, I may boop your nose or steal forehead kisses occasionally.
+                </p>
+                <p class="italic text-gray-500 text-lg mt-4">
+                    (My dedication to earning these coveted rights is immense, and they are implicitly covered by the Commitment Contract!)
+                </p>
+            </div>
+        </div>
+
+        <!-- Commitment Contract (Lifetime Validity) -->
+        <div class="document-card">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">Commitment Contract (Lifetime Validity)</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="font-medium text-xl mb-4">COMMITMENT CONTRACT (LIFETIME VALIDITY)</p>
+                <p class="mb-6 text-lg">
+                    This legally non-binding but emotionally binding contract outlines the unwavering commitment of Raniel to a lifetime of love, care, and partnership.
+                </p>
+                <p class="font-semibold text-lg mb-3">Key Clauses Include:</p>
+                <ul class="list-disc list-inside ml-6 text-lg space-y-2 mb-6">
+                    <li><span class="font-semibold text-orange-600">Forehead Kisses:</span> Guaranteed on demand, and spontaneously, for comfort, affection, and general adoration.</li>
+                    <li><span class="font-semibold text-orange-600">Late-Night Talks:</span> Availability for deep conversations, silly musings, or quiet companionship until the stars fade.</li>
+                    <li><span class="font-semibold text-orange-600">Back Hugs:</span> Provision of warm, comforting back hugs at any given moment, without prior request.</li>
+                    <li><span class="font-semibold text-orange-600">No Silent Treatment During Petty Fights:</span> A solemn vow to engage in direct communication, even during minor disagreements, ensuring swift resolution and emotional clarity.</li>
+                    <li><span class="font-semibold">Unconditional Love:</span> A blanket clause encompassing all forms of affection, support, and devotion for the duration of a lifetime.</li>
+                </ul>
+                <p class="mb-4 text-lg">
+                    This contract is effective immediately upon your heart's realization that Raniel is, indeed, the best thing that has ever happened to you.
+                </p>
+                <p class="text-right mt-6 text-lg">Signed with Eternal Love,<br>Raniel</p>
+            </div>
+        </div>
+
+        <!-- Date Invitation Section -->
+        <div class="document-card text-center relative overflow-hidden">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-pink-500 mb-6">A Special Invitation!</h2>
+            <p class="text-xl text-gray-700 mb-6">
+                Now that my application is complete, I have one more important question for you, my love:
+            </p>
+            <p class="text-2xl font-bold text-pink-600 mb-8">
+                Would you care to join me on a date?
+            </p>
+
+            <div id="date-invite-container" class="relative w-full max-w-lg mx-auto bg-pink-50 rounded-xl p-8 shadow-inner border border-pink-200">
+                <button id="yes-button"
+                        class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-extrabold text-xl py-4 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-green-300 mr-8 animate-pulse-slow"
+                        onclick="triggerConfettiAndShowMessage();">
+                    Yes!
+                </button>
+                <button id="no-button"
+                        class="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-bold text-xl py-4 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300"
+                        onmouseover="moveNoButton()">
+                    No
+                </button>
+            </div>
+            <p class="text-base text-gray-500 mt-6 italic">
+                (Hint: One button is much easier to click than the other!)
+            </p>
+        </div>
+
+        <footer class="text-center mt-10 text-gray-600 text-sm">
+            <p>&copy; 2025 Raniel's Unwavering Devotion. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Custom Message Box HTML -->
+    <div id="message-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[10000] hidden">
+        <div id="message-box" class="bg-white p-8 rounded-lg shadow-2xl max-w-sm text-center">
+            <p id="message-text" class="text-xl font-semibold text-gray-800 mb-6"></p>
+            <button onclick="hideMessageBox()" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
+                Got it!
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // A small script to ensure the page is fully loaded before any dynamic operations,
+        // although for this static page, it's primarily for best practice.
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Raniel's Love Application loaded!");
+        });
+
+        // Function to make the 'No' button move
+        function moveNoButton() {
+            const noButton = document.getElementById('no-button');
+            const container = document.getElementById('date-invite-container');
+
+            // Get dimensions of the container and button
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+
+            // Calculate random positions within the container boundaries
+            // We subtract button dimensions to keep the whole button inside
+            const newLeft = Math.random() * (containerRect.width - buttonRect.width);
+            const newTop = Math.random() * (containerRect.height - buttonRect.height);
+
+            // Apply the new position. Use 'px' units.
+            noButton.style.left = `${newLeft}px`;
+            noButton.style.top = `${newTop}px`;
+        }
+
+        // Function to trigger confetti effect
+        function triggerConfetti() {
+            const confettiCount = 150; // Increased confetti count for more impact
+            // A range of vibrant colors for the confetti
+            const colors = ['#FFD700', '#FF69B4', '#8A2BE2', '#32CD32', '#00BFFF', '#FF4500', '#DA70D6', '#ADFF2F', '#FF6347', '#4682B4', '#FFC0CB', '#7FFF00', '#FF8C00'];
+            const body = document.body;
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti-particle');
+
+                // Set random size, color, and initial position for each particle
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = `${Math.random() * 10 + 5}px`; // 5-15px
+                confetti.style.height = `${Math.random() * 10 + 5}px`;
+                confetti.style.left = `${Math.random() * 100}vw`; // Random horizontal position across the viewport
+
+                // Set animation duration and delay to create a staggered, natural fall
+                const animationDuration = Math.random() * 4 + 3; // 3-7 seconds
+                const animationDelay = Math.random() * 3; // 0-3 seconds delay for staggering
+                confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+                confetti.style.animationDelay = `${animationDelay}s`;
+
+                body.appendChild(confetti);
+
+                // Remove confetti after its animation completes to clean up the DOM
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+        }
+
+        // Functions for the custom message box
+        function showMessageBox(message) {
+            const messageOverlay = document.getElementById('message-overlay');
+            document.getElementById('message-text').innerText = message;
+            messageOverlay.classList.remove('hidden');
+            // Force a reflow for transition to work
+            void messageOverlay.offsetWidth;
+            messageOverlay.classList.add('visible');
+        }
+
+        function hideMessageBox() {
+            const messageOverlay = document.getElementById('message-overlay');
+            messageOverlay.classList.remove('visible');
+            messageOverlay.addEventListener('transitionend', () => {
+                if (!messageOverlay.classList.contains('visible')) {
+                    messageOverlay.classList.add('hidden');
+                }
+            }, { once: true }); // Remove listener after it fires once
+        }
+
+        // Combined function for Yes button click
+        function triggerConfettiAndShowMessage() {
+            triggerConfetti();
+            showMessageBox('Wonderful! I knew you\'d say yes! How about we plan something soon? 😊');
+        }
+    </script>
+</body>
+</html>
